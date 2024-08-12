@@ -15,13 +15,13 @@
         </div>
         <div>
             <label>Senha</label><br/>
-            <input type="password" name="password" placeholder="Senha">
+            <input type="password" name="password" id="password" onchange="validateFields" placeholder="Senha">
         </div>
         <div>
-            <button type="button" class="clear" disabled="true">Recuperar Senha</button>
+            <button type="button" class="clear" di = "recover-password-button" disabled="true">Recuperar Senha</button>
         </div>
         <div>
-            <button type="button" class="solid" disabled="true">Entrar</button>
+            <button type="button" class="solid" id="login-button" disabled="true">Entrar</button>
         </div>
         <div>
             <button type="button" class="outline">Registrar</button>
@@ -36,8 +36,32 @@
 
 <script>
     function validateFields() {
-        const email = document.getElementByid("email").value;
+        const emailValid = isEmailValid;
+        document.getElementById('recover-password-button').disabled = !emailValid;
+        
+        const passwordValid = isPasswordValid();
+        document.getElementById('login-button').disabled = !emailValid || !passwordValid;
 
+
+        function isEmailValid() {
+            const email = document.getElementById("email").value;
+            if(!email) {
+                return false;
+            }
+            return validateEmail(email);
+        }
+        function isPasswordValid() {
+            const password = document.getElementById('passwor').value;
+            if (!password) {
+                return false
+            }
+            return true;
+
+
+        }
+        function validateEmail(email) {
+            return/\S+@\S+\.\S+/.test(email);
+        }
     }
 </script>
 
